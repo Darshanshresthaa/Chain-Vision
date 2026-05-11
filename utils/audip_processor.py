@@ -50,7 +50,7 @@ def convert_to_wav_format(input_path)->str:
 # Making chunk of 10 Minute
 
 def chunk_audio(wav_path:str,chunk_duration:int = 10) -> list:
-    audio = AudioSegment.from_wav(wav_path) #file path 
+    audio = AudioSegment.from_wav(wav_path)  
     chunk_milisecond = chunk_duration*60*1000
 
     chunks = []
