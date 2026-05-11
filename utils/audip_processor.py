@@ -24,9 +24,13 @@ def downlaod_youtube_audio(url:str)->str:
     }],
     }
 
-    with yt_dlp.YoutubeDL(yt_dlp) as ydl:
-        info = ydl.extract_info(url=url,download=True)
-        file_name = ydl.prepare_filename(info).replace(".webm",".wav").replace(".mp4",".mp3")
-    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        information = ydl.extract_info(url=url,download=True)  #take url and extract meta data fromt that file duration conent title
+        file_name = ydl.prepare_filename(information).replace(".webm",".wav").replace(".mp4",".wav").replace(".m4a",".wav")  #yt-dlp get .mp4 format s
+    return file_name
+
+
+downlaod_youtube_audio(url="https://www.youtube.com/watch?v=rJ1Qao09CFI")
+
     
 
