@@ -1,0 +1,43 @@
+# Python >= 3.10
+
+# ── Audio / Video ─────────────────────────────────────────
+yt-dlp
+pydub
+ffmpeg-python
+
+# ── Speech-to-Text ────────────────────────────────────────
+faster-whisper
+torch
+torchaudio
+
+# ── Translation ───────────────────────────────────────────
+deep-translator
+
+# ── LangChain + LLM ───────────────────────────────────────
+langchain
+langchain-core
+langchain-community
+langchain-mistralai
+mistralai
+
+# ── RAG / Embeddings ──────────────────────────────────────
+chromadb
+sentence-transformers
+langchain-huggingface
+huggingface-hub
+tiktoken
+
+# ── Streamlit UI ──────────────────────────────────────────
+streamlit
+streamlit-extras
+watchdog
+
+# ── Export ────────────────────────────────────────────────
+reportlab
+fpdf2
+
+# ── Utilities ─────────────────────────────────────────────
+python-dotenv
+numpy
+tqdm
+requests
