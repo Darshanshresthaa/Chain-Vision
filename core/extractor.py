@@ -50,7 +50,6 @@ def build_chain(system_prompt: str):
 
 PROMPTS = {
 
-   
 
     "summary": """
     You are an expert meeting analyst.
