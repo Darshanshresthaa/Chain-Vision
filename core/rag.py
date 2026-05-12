@@ -11,15 +11,11 @@ import os
 
 
 load_dotenv()
+# Loading Simple LLM 
 
-def get_llm():
+from core.model import get_llm_simple
 
-    model =  ChatMistralAI(
-        model_name="mistral-small-latest",
-        mistral_api_key=os.getenv("MISTRAL_API_KEY"),
-        temperature=0.1
-    )
-    return model
+llm = get_llm_simple()
 
 
 def format_docs(doc_list:list)->str:
@@ -38,7 +34,7 @@ def build_rag_chain(transcipt:str):
     vector_store = build_vector_store(transcipt=transcipt)  #load data to VS
     retriver = get_retrival(vector_store=vector_store,k_value=5)
 
-    text_gen_llm= get_llm()
+    text_gen_llm= get_llm_simple()
 
     prompt = ChatPromptTemplate.from_messages([
     (
@@ -84,7 +80,7 @@ def load_rag_chain():
     vector_store = load_vector_store()
     retriver = get_retrival(vector_store=vector_store,k_value=5)
 
-    text_gen_llm = get_llm()
+    text_gen_llm = get_llm_simple()
 
     parser = StrOutputParser()
 

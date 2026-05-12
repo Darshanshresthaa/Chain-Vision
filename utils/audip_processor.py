@@ -94,22 +94,24 @@ def process_data(source:str)->list:
     return chunks_list
 
 
-result ="https://www.youtube.com/watch?v=etcYBI7L1D8"
+# Testing and debugging
 
-final_chunk_list = process_data(source=result)
-# # Debugging
-# print("==="*50)
-# print()
-# print(result)
-# print()
-# print("==="*50)
-# print()
+# result ="https://www.youtube.com/watch?v=etcYBI7L1D8"
 
-# mono_audio = convert_to_wav_format(result)
+# final_chunk_list = process_data(source=result)
+# # # Debugging
+# # print("==="*50)
+# # print()
+# # print(result)
+# # print()
+# # print("==="*50)
+# # print()
 
-# path_list = chunk_audio(mono_audio)
+# # mono_audio = convert_to_wav_format(result)
 
-# print(path_list) #list of path
+# # path_list = chunk_audio(mono_audio)
+
+# # print(path_list) #list of path
 
 
 

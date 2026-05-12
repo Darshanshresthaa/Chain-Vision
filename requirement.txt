@@ -13,15 +13,17 @@ deep-translator
 
 # ── LangChain + LLM ───────────────────────────────────────
 langchain
+langchain-core
 langchain-community
 langchain-mistralai
+langchain-chroma
 mistralai
 
 # ── RAG / Embeddings ──────────────────────────────────────
 chromadb
-sentence-transformers
+sentence-transformers==2.7.0
 langchain-huggingface
-huggingface-hub
+huggingface_hub==0.23.0
 tiktoken
 
 # ── Streamlit UI ──────────────────────────────────────────

@@ -1,4 +1,4 @@
-from langchain_mistralai import ChatMistralAI
+
 from langchain_core.prompts import ChatPromptTemplate,PromptTemplate
 from langchain_core.messages import AIMessage,SystemMessage,HumanMessage
 from langchain_core.output_parsers import StrOutputParser
@@ -11,10 +11,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Loading model Mistral
 
-# Loading models
-def get_llm():
-    return ChatMistralAI(model_name="mistral-small-latest",mistral_api_key=os.getenv("MISTRAL_API_KEY"),temperature=0.5)
+from core.model import get_llm
+
+
+llm = get_llm()
+
+
+
+
 
 
 def chunk_text(transcript: str) -> list:

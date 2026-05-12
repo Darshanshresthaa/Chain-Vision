@@ -1,47 +1,52 @@
-from utils.audip_processor import process_data
-from core.transcipt import transcribe_all_chunk
-from core.Summary import summarize_data
-from core.extractor import analyze_transcript
+# from utils.audip_processor import process_data
+# from core.transcipt import transcribe_all_chunk
+# from core.Summary import summarize_data
+# from core.extractor import analyze_transcript
 
 
-data ="https://www.youtube.com/watch?v=1IxG7ywSNXk&t=116s"
+# data ="https://www.youtube.com/watch?v=1IxG7ywSNXk&t=116s"
 
-chunks = process_data(source=data)
+# chunks = process_data(source=data)
 
-trancribe_all = transcribe_all_chunk(chunks=chunks,translate=True)
+# trancribe_all = transcribe_all_chunk(chunks=chunks,translate=True)
 
-print("="*50)
-print()
+# print("="*50)
+# print()
 
-print(chunks)
+# print(chunks)
 
-print()
-print("="*50) 
-
-
-
-print("="*50)
-print()
-
-print(trancribe_all)
-
-print()
-print("="*50) 
+# print()
+# print("="*50) 
 
 
-print("="*50)
-print()
 
-print(summarize_data(trancribe_all))
+# print("="*50)
+# print()
 
-print()
-print("="*50) 
+# print(trancribe_all)
+
+# print()
+# print("="*50) 
 
 
-print("="*50)
-print()
+# print("="*50)
+# print()
 
-print(analyze_transcript(trancribe_all))
+# print(summarize_data(trancribe_all))
 
-print()
-print("="*50) 
+# print()
+# print("="*50) 
+
+
+# print("="*50)
+# print()
+
+# print(analyze_transcript(trancribe_all))
+
+# print()
+# print("="*50) 
+
+
+# Testing GPU or CPU
+import torch
+print("cuda" if torch.cuda.is_available() else "cpu")

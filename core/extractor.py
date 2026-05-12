@@ -16,14 +16,11 @@ load_dotenv()
 
 
 
-def get_llm():
+# Loading LLM from LLM model
 
-    return ChatMistralAI(
-        model_name="mistral-small-latest",
-        mistral_api_key=os.getenv("MISTRAL_API_KEY"),
-        temperature=0.1
-    )
+from core.model import get_llm_simple
 
+llm = get_llm_simple()
 
 
 # BUILD REUSABLE CHAIN
@@ -31,7 +28,7 @@ def get_llm():
 
 def build_chain(system_prompt: str):
 
-    llm = get_llm()
+    llm = get_llm_simple()
 
     parser = StrOutputParser()
 
