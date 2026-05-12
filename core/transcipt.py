@@ -41,17 +41,18 @@ def transcipt_chunk(chunk_path:str,translate:bool=False)->str:
         task = "translate"
     
     else:
-        task = "transcibe"
+        task = "transcribe"
 
     
     segments,info = model.transcribe(chunk_path,task=task)
 
-    text = ""
 
-    for segment in segments:  #return content and meta data
-        text += segment.text + " "
+    text_parts = []
 
-    return text
+    for segment in segments:
+        text_parts.append(segment.text)
+
+    return " ".join(text_parts)
 
 
 def transcribe_all_chunk(chunks:list,translate:bool=False)->str:
@@ -74,4 +75,4 @@ def transcribe_all_chunk(chunks:list,translate:bool=False)->str:
     print()
     print("=="*30)
 
-    return "".join(full_transcript)  #concatination into string
+    return " ".join(full_transcript)  #concatination into string
