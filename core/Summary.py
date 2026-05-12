@@ -9,6 +9,8 @@ from langchain_core.runnables import RunnableSequence,RunnableParallel,RunnableP
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
+
 
 # Loading models
 def get_llm():
