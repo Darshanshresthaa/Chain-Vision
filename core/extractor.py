@@ -178,31 +178,31 @@ def analyze_transcript(transcript: str, analysis_type: str = "summary") -> str:
 
 # TESTING METHOD Functionality
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    transcript = """
-    Darshan will complete frontend by Friday.
+#     transcript = """
+#     Darshan will complete frontend by Friday.
 
-    Ram needs to test the backend API before Monday.
+#     Ram needs to test the backend API before Monday.
 
-    The team decided to deploy using Docker.
+#     The team decided to deploy using Docker.
 
-    Should we migrate to FastAPI next month?
+#     Should we migrate to FastAPI next month?
 
-    There might be delay because the server is unstable.
-    """
+#     There might be delay because the server is unstable.
+#     """
 
-    print("\n===== ACTION ITEMS =====\n")
-    print(analyze_transcript(transcript, "action_items"))
+#     print("\n===== ACTION ITEMS =====\n")
+#     print(analyze_transcript(transcript, "action_items"))
 
-    print("\n===== DECISIONS =====\n")
-    print(analyze_transcript(transcript, "decisions"))
+#     print("\n===== DECISIONS =====\n")
+#     print(analyze_transcript(transcript, "decisions"))
 
-    print("\n===== QUESTIONS =====\n")
-    print(analyze_transcript(transcript, "questions"))
+#     print("\n===== QUESTIONS =====\n")
+#     print(analyze_transcript(transcript, "questions"))
 
-    print("\n===== DEADLINES =====\n")
-    print(analyze_transcript(transcript, "deadlines"))
+#     print("\n===== DEADLINES =====\n")
+#     print(analyze_transcript(transcript, "deadlines"))
 
-    print("\n===== RISKS =====\n")
-    print(analyze_transcript(transcript, "risks"))
+#     print("\n===== RISKS =====\n")
+#     print(analyze_transcript(transcript, "risks"))
