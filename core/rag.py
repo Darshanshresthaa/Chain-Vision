@@ -15,46 +15,66 @@ load_dotenv()
 
 from core.model import get_llm_simple
 
-llm = get_llm_simple()
 
-
-def format_docs(doc_list:list)->str:
+def format_docs(doc_list: list) -> str:
 
     document = []
-    for doc in  doc_list:
+
+    for doc in doc_list:
         document.append(doc.page_content)
-    
-    return " ".join(document)
+
+    return "\n\n".join(document)
+
+def rewrite_query(question: str) -> str:
+
+    q = question.lower()
+
+    replacements = {
+        "physical ai": "physical world AI robotics",
+        "robotics": "AI robotics general purpose robots",
+        "summary": "overall discussion summary",
+        "main points": "important discussion points",
+        "answers": "answers to important questions from document"
+    }
+
+    for key, value in replacements.items():
+
+        if key in q:
+            return value
+
+    return question
 
 
-def build_rag_chain(transcipt:str):
 
-    parser = StrOutputParser()
-    
-    vector_store = build_vector_store(transcipt=transcipt)  #load data to VS
-    retriver = get_retrival(vector_store=vector_store,k_value=5)
-
-    text_gen_llm= get_llm_simple()
-
-    prompt = ChatPromptTemplate.from_messages([
+prompt = ChatPromptTemplate.from_messages([
     (
         "system",
         """
         You are a helpful AI assistant.
 
-        Answer the user's question ONLY using the provided context.
+        Use BOTH:
+        1. Conversation history
+        2. Retrieved context
+
+        to answer the user's question.
 
         Rules:
-        - Do NOT use outside knowledge
-        - If answer is not found, say:
-          "Answer not found in provided document."
-        - Keep answer clear and concise
+        - Use previous conversation if needed
+        - Do not use outside knowledge
+        - Keep answers under 300 words
+        - If related information exists, provide closest answer
+        - Only say "Answer not found in provided document"
+          when absolutely nothing relevant exists
+        - Keep answers clear and concise
         """
     ),
 
     (
         "human",
         """
+        Chat History:
+        {history}
+
         Context:
         {context}
 
@@ -64,73 +84,114 @@ def build_rag_chain(transcipt:str):
         Answer:
         """
     )
-    ])
-
-
-    rag_chain = ({"context":retriver | RunnableLambda(format_docs),  #search similar data data related  to user input and display k no of similar data
-                  "question":RunnablePassthrough()} | prompt |text_gen_llm | parser)
-    
-    return rag_chain
+])
 
 
 
-# loading existing rag
 
-def load_rag_chain():
-    vector_store = load_vector_store()
-    retriver = get_retrival(vector_store=vector_store,k_value=5)
+def build_rag_chain(transcipt: str):
+
+    parser = StrOutputParser()
+
+    vector_store = build_vector_store(transcipt=transcipt)
+
+    retriver = get_retrival(
+        vector_store=vector_store,
+        k_value=4
+    )
 
     text_gen_llm = get_llm_simple()
 
-    parser = StrOutputParser()
+    rag_chain = (
+        {
+            "context":
+                RunnableLambda(
+                    lambda x: rewrite_query(x["question"])
+                )
+                | retriver
+                | RunnableLambda(format_docs),
 
-    prompt = ChatPromptTemplate.from_messages([
-    (
-        "system",
-        """
-        You are a helpful AI assistant.
+            "question":
+                lambda x: x["question"],
 
-        Answer the user's question ONLY using the provided context.
+            "history":
+                lambda x: x["history"]
 
-        Rules:
-        - Do NOT use outside knowledge
-        - If answer is not found, say:
-          "Answer not found in provided document."
-        - Keep answer clear and concise
-        """
-    ),
-
-    (
-        "human",
-        """
-        Context:
-        {context}
-
-        Question:
-        {question}
-
-        Answer:
-        """
+        }
+        | prompt
+        | text_gen_llm
+        | parser
     )
-    ])
 
-    rag_chain = ({"context":retriver | RunnableLambda(format_docs),  #search similar data data related  to user input and display k no of similar data
-                  "question":RunnablePassthrough()} |prompt |text_gen_llm |parser )
-    
     return rag_chain
 
 
-def user_query(rag_chain,question:str)->str:
 
-    print("="*40)
-    print("USer Question :",question)
 
-    answer = rag_chain.invoke(question)
+def load_rag_chain():
 
-    print("AI :",answer)
+    parser = StrOutputParser()
+
+    vector_store = load_vector_store()
+
+    retriver = get_retrival(
+        vector_store=vector_store,
+        k_value=4
+    )
+
+    text_gen_llm = get_llm_simple()
+
+    rag_chain = (
+        {
+            "context":
+                RunnableLambda(
+                    lambda x: rewrite_query(x["question"])
+                )
+                | retriver
+                | RunnableLambda(format_docs),
+
+            "question":
+                lambda x: x["question"],
+
+            "history":
+                lambda x: x["history"]
+
+        }
+        | prompt
+        | text_gen_llm
+        | parser
+    )
+
+    return rag_chain
+
+
+
+
+CHAT_HISTORY = []
+
+
+
+def user_query(rag_chain, question: str) -> str:
+
+    global CHAT_HISTORY
+
+    # print("=" * 40)
+    print("User Question :", question)
+
+    # Build history string
+    history_text = "\n".join(CHAT_HISTORY)
+
+    # Invoke chain
+    answer = rag_chain.invoke({
+        "question": question,
+        "history": history_text
+    })
+
+    # Save conversation
+    CHAT_HISTORY.append(f"User: {question}")
+    CHAT_HISTORY.append(f"AI: {answer}")
+
+    print("\nAI:")
+    print(answer)
 
     return answer
-
-
-
-    

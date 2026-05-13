@@ -8,7 +8,7 @@ CHROMA_STORE_DIR = "Vector_db"  #local path to store vectordb
 
 COLLECTION_NAME = "meeting_transcript"  #table name insode db
 
-EMBEDDING_MODEL = "all-MiniLM-L6-V2"
+EMBEDDING_MODEL ="sentence-transformers/all-mpnet-base-v2"
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -27,8 +27,8 @@ def build_vector_store(transcipt:str)->Chroma:
 
     # Splitting The Trasncipt into Chunk
 
-    splitter = RecursiveCharacterTextSplitter(chunk_size = 1000,
-                                              chunk_overlap = 200)
+    splitter = RecursiveCharacterTextSplitter(chunk_size = 3000,
+                                              chunk_overlap = 500)
     
     chunk_list = splitter.split_text(transcipt)  #list or chunk
 
@@ -62,7 +62,7 @@ def load_vector_store()-> Chroma:
 
 
 # Retrive similar data
-def get_retrival(vector_store :Chroma,k_value:5):
+def get_retrival(vector_store :Chroma,k_value:8):
     retriver = vector_store.as_retriever(search_type ="similarity",
                               search_kwargs={"k":k_value})
     

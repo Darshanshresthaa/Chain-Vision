@@ -49,7 +49,7 @@ PROMPTS = {
 
 
     "summary": """
-    You are an expert meeting analyst.
+    You are an expert transcript analyst..
 
     Analyze the meeting transcript and generate a structured meeting summary.
 
@@ -74,7 +74,7 @@ PROMPTS = {
    
 
     "action_items": """
-    You are an expert meeting analyst.
+    You are an expert transcript analyst..
 
     Extract all action items from the meeting transcript.
 
@@ -95,7 +95,7 @@ PROMPTS = {
 
 
     "decisions": """
-    You are an expert meeting analyst.
+    You are an expert transcript analyst..
 
     Extract all important decisions made during the meeting.
 
@@ -111,7 +111,7 @@ PROMPTS = {
 
 
     "questions": """
-    You are an expert meeting analyst.
+    You are an expert transcript analyst..
 
     Extract all important questions asked during the meeting.
 
@@ -127,7 +127,7 @@ PROMPTS = {
 
 
     "deadlines": """
-    You are an expert meeting analyst.
+   You are an expert transcript analyst..
 
     Extract all deadlines mentioned in the meeting.
 
@@ -140,7 +140,7 @@ PROMPTS = {
 
 
     "risks": """
-    You are an expert meeting analyst.
+    You are an expert transcript analyst..
 
     Extract all risks, blockers, delays, or issues mentioned.
 

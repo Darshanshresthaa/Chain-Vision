@@ -4,7 +4,7 @@ import torch
 
 
 
-WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")
+WHISPER_MODEL = os.getenv("WHISPER_MODEL", "medium")
 
 # preventing model from downloading replica again and again each time
 
@@ -23,7 +23,7 @@ def load_model():
         # If user dont have Gpu auto select Cpu
         IS_MODEL_PRESENT = WhisperModel(WHISPER_MODEL,
                                         device=DEVICE,
-                                        compute_type="int8")
+                                        compute_type="float16")
 
         print("Whisper model loaded Sucessfully")
     
