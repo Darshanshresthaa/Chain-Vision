@@ -1,19 +1,27 @@
 # Virtual Environment
 .venv/
 
-# Python cache
+# Python Cache
 __pycache__/
 *.pyc
 
-# Environment variables
+# Environment Variables
 .env
 
-# Downloads / generated files
-downloads/
+# Vector Database
+vector_db/
+
+# Chroma DB
 chroma_db/
 
-# VS Code
-.vscode/
+# FAISS
+faiss_index/
 
-# OS files
+# Downloads
+downloads/
+
+# Audio Chunks
+chunks/
+
+# OS Files
 .DS_Store
